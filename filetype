@@ -1,0 +1,28 @@
+#!/bin/bash
+echo -n "파일/디렉토리 이름 입력 [enter] : "
+read name
+
+if [ ! -e "$name" ]; then
+    echo "$name 은 존재하지 않습니다."
+    exit 1
+fi
+
+if [ -d "$name" ]; then
+    type="디렉토리"
+elif [ -L "$name" ]; then
+    type="심볼릭링크"
+elif [ -c "$name" ]; then
+    type="문자장치"
+elif [ -b "$name" ]; then
+    type="블록장치"
+elif [ -p "$name" ]; then
+    type="파이프"
+elif [ -S "$name" ]; then
+    type="소켓"
+elif [ -f "$name" ]; then
+    type="보통파일"
+else
+    type="알 수 없는 유형"
+fi
+
+echo "$name 은 $type 입니다."
